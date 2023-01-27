@@ -478,7 +478,7 @@
     <!-- END: Content-->
     <h5 class="mb-1 fontBig">المجلات </h5>
 
-
+    @include('alert')
     <a href="{{route('artical.create')}}"> <button type="button" class="btn btn-success waves-effect waves-float waves-light align-items-start fontSize">+
             اضف مجله</button></a>
 

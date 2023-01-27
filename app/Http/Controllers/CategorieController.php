@@ -23,6 +23,12 @@ class CategorieController extends Controller
     public function store(Request $request)
         {
 
+            $request->validate([
+
+                'name' => 'required|string|max:50',
+                'image' => 'required|image|mimes:jpg,jpeg,png',
+
+            ]);
 
             $fileName = null;
             if($request->hasFile('image')){
@@ -34,7 +40,12 @@ class CategorieController extends Controller
             $category->name = $request->name;
             $category->image = $fileName;
             $category->save();
-            return redirect()->route('parts.index');
+
+            if ($category) {
+                return redirect()->route('parts.index')->with('Add','تم الاضافه بنجاح');
+            } else {
+                return redirect()->route('parts.index')->with('warning','حدث خطأ اعد المحاوله');
+            }
         }
 
         public function show()
@@ -51,8 +62,12 @@ class CategorieController extends Controller
     public function update(Request $request , $id)
         {
             $request->validate([
-                    'name'=>'required|string|max:100',
-                ]);
+
+                'name' => 'required|string|max:50',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png',
+
+            ]);
+
             $category = Category::findOrFail($id);
 
             //image
@@ -68,13 +83,23 @@ class CategorieController extends Controller
             }
             $category->name = $request->name;
             $category->save();
-                return redirect(route('parts.index'));
+
+            if ($category) {
+                return redirect()->route('parts.index')->with('edit','تم التعديل بنجاح');
+            } else {
+                return redirect()->route('parts.index')->with('warning','حدث خطأ اعد المحاوله');
+            }
         }
 
     public function destroy($id)
         {
             $category = Category::findOrFail($id);
+            $image_path = public_path().'/article/category/'.$category->image;
+            $image = $category->image;
+            if($image){
+                unlink($image_path);
+            }
             $category->delete();
-            return redirect()->route('parts.index');
+            return redirect()->route('parts.index')->with('delete','تم حذف بنجاح');
         }
 }

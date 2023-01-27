@@ -40,14 +40,13 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
+        $request->validate([
+
+            'name' => 'required|string|max:50',
+            'description' => 'required|string',
+
         ]);
 
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
 
         $section = new Section;
 
@@ -61,7 +60,11 @@ class SectionController extends Controller
 
         $section->save();
 
-        return redirect()->route('section.index');
+        if ($section) {
+            return redirect()->route('section.index')->with('Add','تم الاضافه بنجاح');
+        } else {
+            return redirect()->route('section.index')->with('warning','حدث خطأ اعد المحاوله');
+        }
 
     }
 
@@ -98,6 +101,12 @@ class SectionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+
+            'name' => 'required|string|max:50',
+            'description' => 'required|string',
+
+        ]);
         $section = Section::findOrFail($id);
 
         $section->name = $request->name;
@@ -108,7 +117,12 @@ class SectionController extends Controller
             $section->course_id = $request->course;
         }
         $section->save();
-        return redirect()->route('section.index');
+
+        if ($section) {
+            return redirect()->route('section.index')->with('Add','تم التعديل بنجاح');
+        } else {
+            return redirect()->route('section.index')->with('warning','حدث خطأ اعد المحاوله');
+        }
 
 
     }
@@ -124,6 +138,6 @@ class SectionController extends Controller
         $section = Section::findOrFail($id);
         $section->delete();
 
-        return redirect()->route('section.index');
+        return redirect()->route('section.index')->with('delete','تم حذف بنجاح');
     }
 }

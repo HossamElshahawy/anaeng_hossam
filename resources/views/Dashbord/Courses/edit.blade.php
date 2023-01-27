@@ -498,9 +498,13 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label font" for="basicInput">اسم الدوره</label>
-                                <input type="text" class="form-control font" id="basicInput"
+                                <input type="text" class="form-control font @error('name') is-invalid @enderror" id="basicInput"
                                        placeholder="مثل'الهندسه المدنيه'" name="name" value="{{old('name',$course->name)}}">
-
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -537,8 +541,12 @@
 
                         <div class="mb-1">
                             <label class="form-label font" for="exampleFormControlTextarea1 ">نبذه عن الدوره</label>
-                            <textarea class="form-control font" id="exampleFormControlTextarea1" rows="3" placeholder="مثل 'دوره تتيح لك التأهل ل سوق العمل'" name="description">{{ old('description',$course->description) }}
-                            </textarea>
+                            <textarea class="form-control font @error('description') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" placeholder="مثل 'دوره تتيح لك التأهل ل سوق العمل'" name="description">{{ old('description',$course->description) }}</textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                     </div>

@@ -499,8 +499,13 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label font" for="basicInput">اسم القسم</label>
-                                <input type="text" class="form-control font" id="basicInput"
+                                <input type="text" class="form-control font @error('name') is-invalid @enderror" id="basicInput"
                                        placeholder="مثل'الهندسه المدنيه'" name="name" value="{{old('name',$section->name)}}" >
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-6 col-12">
@@ -514,24 +519,27 @@
 
                         <div class="mb-1">
                             <label class="form-label font" for="exampleFormControlTextarea1 ">نبذه عن القسم</label>
-                            <textarea class="form-control font" id="exampleFormControlTextarea1" rows="3"
+                            <textarea class="form-control font @error('description') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3"
                                       placeholder="مثل 'دوره تتيح لك التأهل ل سوق العمل'" name="description"  >{{old('description',$section->description)}}</textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
-                        <div class="form-group row pt-6">
-
-                                <select name="course" class="form-select form-select-sm">
-
-                                    @foreach ($courses as $course)
-                                        <option @if ($course->id == $section->course_id) selected @endif value="{{$course->id}}">{{$course->name}}</option>
-                                    @endforeach
-
-
-                                </select>
-
-
-
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <label class="form-label font" for="basicSelect">اختر اسم الكورس</label>
+                            <select class="form-select font @error('course') is-invalid @enderror" id="basicSelect" name="course">
+                                @foreach ($courses as $course)--}}
+                                <option @if ($course->id == $section->course_id) selected @endif value="{{$course->id}}">{{$course->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
+
+                    </div>
+
+                    <br>
 
 
                         <div class="col-xl-4 col-md-6 col-12 font ">

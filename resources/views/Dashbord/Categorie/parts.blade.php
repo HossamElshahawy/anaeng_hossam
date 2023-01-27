@@ -483,7 +483,7 @@
         <!-- END: Content-->
         <h5 class="mb-1 fontBig">الاقسام </h5>
 
-
+        @include('alert')
        <a href="{{route('parts.create')}}"> <button type="button"  class="btn btn-success waves-effect waves-float waves-light align-items-start fontSize " >+
             اضف قسم</button>
         </a>

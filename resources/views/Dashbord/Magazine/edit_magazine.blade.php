@@ -499,7 +499,7 @@
                         @csrf
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
-                                <label class="form-label font" for="basicInput">عنوان المجله </label>
+                                <label class="form-label font @error('title') is-invalid @enderror" for="basicInput">عنوان المجله </label>
                                 <input type="text" class="form-control font" id="basicInput"
                                        value="{{old('title') ?? $magazine->title}}"  placeholder="مثل'المجله اليوميه من انا مهندس'" name="title">
                             </div>

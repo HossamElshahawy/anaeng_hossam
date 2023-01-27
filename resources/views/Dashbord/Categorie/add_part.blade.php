@@ -499,8 +499,13 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label font" for="basicInput">عنوان المقاله</label>
-                                <input type="text" class="form-control font" id="basicInput"
-                                       name="name" >
+                                <input type="text" class="form-control font @error('name') is-invalid @enderror" id="basicInput"
+                                       name="name" value="{{old('name')}}">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -509,7 +514,12 @@
                         <label class="form-label font" for="basicInput">اختر صوره للدوره</label>
                         <div class="input-group mb-3 color">
                             <label class="input-group-text font color" for="inputGroupFile01">اختر</label>
-                            <input type="file" class="form-control color" id="inputGroupFile01" name="image">
+                            <input type="file" class="form-control color  @error('image') is-invalid @enderror" id="inputGroupFile01" name="image">
+                            @error('image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
 

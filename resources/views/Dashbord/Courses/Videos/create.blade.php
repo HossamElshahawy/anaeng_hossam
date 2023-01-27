@@ -498,8 +498,13 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label font" for="basicInput">اسم الفيديو</label>
-                                <input type="text" class="form-control font" id="basicInput"
+                                <input type="text" class="form-control font @error('name') is-invalid @enderror" id="basicInput"
                                        placeholder="مثل'الهندسه المدنيه'" name="name" >
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -516,6 +521,7 @@
                                 <label class="form-label font" for="basicInput">order</label>
                                 <input type="number" class="form-control font" id="basicInput"
                                        placeholder="مثل'الهندسه المدنيه'" name="order" >
+
                             </div>
                         </div>
 

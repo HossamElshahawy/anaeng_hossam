@@ -498,8 +498,13 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label font" for="basicInput">عنوان المقاله</label>
-                                <input type="text" class="form-control font" id="basicInput"
-                                        name="title" >
+                                <input type="text" class="form-control font  @error('tag1') is-invalid @enderror" id="basicInput"
+                                       name="title" value="{{old('title')}}">
+                                @error('title')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -508,29 +513,55 @@
                         <label class="form-label font" for="basicInput">اختر صوره للدوره</label>
                         <div class="input-group mb-3 color">
                             <label class="input-group-text font color" for="inputGroupFile01">اختر</label>
-                            <input type="file" class="form-control color" id="inputGroupFile01" name="img">
+                            <input type="file" class="form-control color  @error('img') is-invalid @enderror" id="inputGroupFile01" name="img">
+                            @error('img')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
 
                         <div class="mb-1">
                             <label class="form-label font" for="basicInput">شعار</label>
-                            <input type="text" class="form-control font" id="basicInput"
+                            <input type="text" class="form-control font  @error('tag1') is-invalid @enderror" id="basicInput"
                                    placeholder="مثل الهندسه المدنيه" name="tag1" value="{{old('tag1')}}">
+                            @error('tag1')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="mb-1">
                             <label class="form-label font" for="basicInput">شعار2</label>
-                            <input type="text" class="form-control font" id="basicInput"
+                            <input type="text" class="form-control font  @error('tag2') is-invalid @enderror" id="basicInput"
                                    placeholder="مثل الهندسه المدنيه" name="tag2" value="{{old('tag2')}}">
+                            @error('tag2')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="mb-1">
                             <label class="form-label font" for="basicInput">شعار3</label>
-                            <input type="text" class="form-control font" id="basicInput"
+                            <input type="text" class="form-control font  @error('tag3') is-invalid @enderror" id="basicInput"
                                    placeholder="مثل الهندسه المدنيه" name="tag3" value="{{old('tag3')}}">
+                            @error('tag3')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
 
                         <div class="mb-1">
                             <label class="form-label font" for="exampleFormControlTextarea1 ">اكتب المقاله</label>
-                            <textarea class="form-control font" id="exampleFormControlTextarea1" rows="3"
-                                      placeholder="مثل 'دوره تتيح لك التأهل ل سوق العمل'" name="description"  ></textarea>
+                            <textarea class="form-control font @error('description') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3"
+                                      placeholder="مثل 'دوره تتيح لك التأهل ل سوق العمل'" name="description">{{old('description')}}
+                            </textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
 
                         <div class="col-xl-4 col-md-6 col-12">

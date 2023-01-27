@@ -32,11 +32,11 @@ class ArticalController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'img' => 'required|image|mimes:jpg,jpeg,png',
-            'tag1' => 'nullable|string|max:200',
-            'tag2' => 'nullable|string|max:200',
-            'tag3' => 'nullable|string|max:200',
-//                'category_ids'=> 'required',
-//               'category_ids.*'=> 'exists :categories,id'
+            'tag1' => 'required|string|max:200',
+            'tag2' => 'required|string|max:200',
+            'tag3' => 'required|string|max:200',
+//            'category_ids'=> 'required',
+//            'category_ids.*'=> 'exists :categories,id'
         ]);
 
         $fileName = null;
@@ -59,7 +59,11 @@ class ArticalController extends Controller
         $article->tag3 = $request->tag3;
         $article->save();
 
-        return redirect()->route('article.index');
+        if ($article) {
+            return redirect()->route('article.index')->with('Add','تم الاضافه بنجاح');
+        } else {
+            return redirect()->route('article.index')->with('warning','حدث خطأ اعد المحاوله');
+        }
     }
 
     public function edit($id)
@@ -74,12 +78,12 @@ class ArticalController extends Controller
     {
 
         $request->validate([
-            'title' => 'nullable|string|max:100',
-            'content' => 'nullable|string',
+            'title' => 'required|string|max:100',
+            'description' => 'required|string',
             'img' => 'nullable|image|mimes:jpg,jpeg,png',
-            'tag1' => 'nullable|string|max:200',
-            'tag2' => 'nullable|string|max:200',
-            'tag3' => 'nullable|string|max:200',
+            'tag1' => 'required|string|max:200',
+            'tag2' => 'required|string|max:200',
+            'tag3' => 'required|string|max:200',
 //               'category_ids'=> 'required',
 //                'category_ids.*'=> 'exists :categories,id'
         ]);
@@ -110,38 +114,26 @@ class ArticalController extends Controller
         $article->tag3 = $request->tag3;
         $article->save();
 
-        return redirect()->route('article.index');
-
-
-
-
-
-
-////
-////        {
-////            $requestData = $request->all();
-////            $fileName = time().$request->file('img')->getClientOriginalName();
-////            $path = $request->file('img')->storeAs('artical', $fileName, 'public');
-////            $requestData["img"] = '/storage/'.$path;
-////        }
-//
-//        $articals = Artical::findOrFail($id)->update([
-//            'title' => $request->title,
-//            'description' => $request->description,
-//            'img' => $request->img,
-//            'tag1' => $request->tag1,
-//            'tag2' => $request->tag2,
-//            'tag3' => $request->tag3,
-//        ]);
-//        return redirect(route('artical', $id));
+//        return redirect()->route('article.index');
+        if ($article) {
+            return redirect()->route('article.index')->with('edit','تم التعديل بنجاح');
+        } else {
+            return redirect()->route('article.index')->with('warning','حدث خطأ اعد المحاوله');
+        }
     }
 
     public function delete($id)
     {
         $articals = Artical::findOrFail($id);
         $articals->categories()->sync([]);
+        $image_path = public_path().'/storage/article/'.$articals->image;
+        $image = $articals->img;
+        if($image){
+            unlink($image_path);
+        }
         $articals->delete();
-        return back();
+        return redirect()->route('article.index')->with('delete','تم حذف بنجاح');
+
     }
 
     public function view_all_artical()

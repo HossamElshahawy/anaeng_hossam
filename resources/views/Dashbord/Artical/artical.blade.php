@@ -45,6 +45,8 @@
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static   menu-collapsed" data-open="click"
     data-menu="vertical-menu-modern" data-col="">
 
+
+
     <!-- BEGIN: Header-->
     <nav
         class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
@@ -478,7 +480,7 @@
         <!-- END: Content-->
         <h5 class="mb-1 fontBig">المقالات </h5>
 
-
+        @include('alert')
        <a href="{{route('article.create')}}"> <button type="button" class="btn btn-success waves-effect waves-float waves-light align-items-start fontSize">+
             اضف مقاله</button></a>
 

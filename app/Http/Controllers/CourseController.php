@@ -35,6 +35,17 @@ class CourseController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+
+            'name' => 'required|string|max:50',
+            'description' => 'required|string',
+//            'price' => 'required|string|max:50',
+//            'price_online' => 'required|string|max:50',
+//            'price_offline' => 'required|string|max:50',
+            'photo' => 'required|image|mimes:jpg,jpeg,png',
+
+        ]);
+
         $fileName = null;
         if($request->hasFile('photo')){
             $photoFile = $request->file('photo');
@@ -51,7 +62,11 @@ class CourseController extends Controller
         $course->price = $request->price_record;
         $course->save();
 
-        return redirect()->route('course.index');
+        if ($course) {
+            return redirect()->route('course.index')->with('Add','تم الاضافه بنجاح');
+        } else {
+            return redirect()->route('course.index')->with('warning','حدث خطأ اعد المحاوله');
+        }
     }
 
 // this function use to reder page show course
@@ -73,6 +88,13 @@ class CourseController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+
+            'name' => 'required|string|max:50',
+            'description' => 'required|string',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png',
+
+        ]);
         $course = Course::findOrFail($id);
 
         //image
@@ -95,16 +117,25 @@ class CourseController extends Controller
         $course->price = $request->price_record;
         $course->save();
 
-        return redirect()->route('course.index');
+        if ($course) {
+            return redirect()->route('course.index')->with('Add','تم التعديل بنجاح');
+        } else {
+            return redirect()->route('course.index')->with('warning','حدث خطأ اعد المحاوله');
+        }
     }
     // this function use to  delete course
 
     public function destroy($id)
     {
-        $course = Course::find($id);
+        $course = Course::findOrFail($id);
+        $image_path = public_path().'/storage/course/'.$course->photo;
+        $image = $course->image;
+        if($image){
+            unlink($image_path);
+        }
         $course->delete();
 
-        return redirect()->route('course.index');
+        return redirect()->route('course.index')->with('delete','تم حذف بنجاح');
     }
 
 

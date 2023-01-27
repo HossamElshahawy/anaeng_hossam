@@ -45,8 +45,6 @@ class VideoController extends Controller
         ]);
 
 
-
-
         $videos = $request->file('videos');
 
         foreach ($videos as $video) {
@@ -61,13 +59,11 @@ class VideoController extends Controller
             }
             $video->save();
         }
-        return redirect()->route('video.index');
-
-
-
-
-
-
+        if ($video) {
+            return redirect()->route('video.index')->with('Add','تم الاضافه بنجاح');
+        } else {
+            return redirect()->route('video.index')->with('warning','حدث خطأ اعد المحاوله');
+        }
     }
 
     /**
@@ -121,9 +117,11 @@ class VideoController extends Controller
             }
             $video->save();
         }
-        return redirect()->route('video.index');
-
-
+        if ($video) {
+            return redirect()->route('video.index')->with('edit','تم التعديل بنجاح');
+        } else {
+            return redirect()->route('video.index')->with('warning','حدث خطأ اعد المحاوله');
+        }
     }
 
     /**
@@ -134,6 +132,6 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        //
+       //
     }
 }

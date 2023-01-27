@@ -498,8 +498,13 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label font" for="basicInput">اسم الدوره</label>
-                                <input type="text" class="form-control font" id="basicInput"
-                                    placeholder="مثل'الهندسه المدنيه'" name="name" >
+                                <input type="text" class="form-control font @error('name') is-invalid @enderror" id="basicInput"
+                                    placeholder="مثل'الهندسه المدنيه'" name="name" value="{{old('name')}}">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -508,32 +513,57 @@
                         <label class="form-label font" for="basicInput">اختر صوره للدوره</label>
                         <div class="input-group mb-3 color">
                             <label class="input-group-text font color" for="inputGroupFile01">اختر</label>
-                            <input type="file" class="form-control color" id="inputGroupFile01" name="photo">
+                            <input type="file" class="form-control color @error('photo') is-invalid @enderror" id="inputGroupFile01" name="photo">
+                            @error('photo')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         {{--                        // price_meeting--}}
                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2 font">
                             <label class="form-label " for="numeral-formatting">سعر الدوره اونلاين</label>
-                            <input type="text" class="form-control numeral-mask" placeholder="10,000"
-                                id="numeral-formatting" name="price_meeting" >
+                            <input type="text" class="form-control numeral-mask @error('price_meeting') is-invalid @enderror" placeholder="10,000"
+                                id="numeral-formatting" name="price_meeting" value="{{old('price_meeting')}}">
+                            @error('price_meeting')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 {{--                        price_incenter--}}
                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2 font">
                             <label class="form-label" for="numeral-formatting">سعر الدوره في المقر</label>
-                            <input type="text" class="form-control numeral-mask" placeholder="10,000"
-                                id="numeral-formatting" name="price_incenter"  >
+                            <input type="text" class="form-control numeral-mask @error('price_incenter') is-invalid @enderror" placeholder="10,000"
+                                id="numeral-formatting" name="price_incenter"   value="{{old('price_incenter')}}">
+                            @error('price_incenter')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 {{--                        price_record--}}
                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2 font">
                             <label class="form-label" for="numeral-formatting">سعر الدوره علي المنصه</label>
-                            <input type="text" class="form-control numeral-mask" placeholder="10,000"
-                                id="numeral-formatting" name="price_record">
+                            <input type="text" class="form-control numeral-mask @error('price_record') is-invalid @enderror" placeholder="10,000"
+                                id="numeral-formatting" name="price_record" value="{{old('price_record')}}">
+                            @error('price_record')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
 
                         <div class="mb-1">
                             <label class="form-label font" for="exampleFormControlTextarea1 ">نبذه عن الدوره</label>
-                            <textarea class="form-control font" id="exampleFormControlTextarea1" rows="3"
-                                placeholder="مثل 'دوره تتيح لك التأهل ل سوق العمل'" name="description"  ></textarea>
+                            <textarea class="form-control font @error('description') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="مثل 'دوره تتيح لك التأهل ل سوق العمل'" name="description"  >{{old('description')}}</textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                     </div>
